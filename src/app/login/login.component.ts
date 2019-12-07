@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AuthService } from '../_services/auth.service';
 import { Router } from '@angular/router';
-import { UserLogin } from '../_models/user-login';
-import { UserRegister } from '../_models/user-register';
+import { User } from '../_models/user';
 import { ToastService } from '../_services/toast.service';
 
 @Component({
@@ -14,8 +13,7 @@ import { ToastService } from '../_services/toast.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   signupForm: FormGroup;
-  userLogin: UserLogin;
-  userRegister: UserRegister;
+  user: User;
   showLoginForm = true;
   genders = ['Male', 'Female', 'Other'];
   countries = [ 'Croatia', 'United Kingdom', 'Germany', 'Russia', 'Canada', 'China', 'France', 'Austria'];
@@ -41,15 +39,15 @@ export class LoginComponent implements OnInit {
 
   createSignupForm() {
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      username: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
   }
 
   login() {
     if (this.loginForm.valid) {
-      this.userLogin = Object.assign({}, this.loginForm.value);
-      this.authService.login(this.userLogin).subscribe(() => {
+      this.user = Object.assign({}, this.loginForm.value);
+      this.authService.login(this.user).subscribe(() => {
         this.toast.showToast('Login successful');
         this.router.navigate(['']);
         this.loginForm.reset();
@@ -62,10 +60,10 @@ export class LoginComponent implements OnInit {
 
   signup() {
     if (this.signupForm.valid) {
-      this.userRegister = Object.assign({}, this.signupForm.value);
-      this.authService.register(this.userRegister).subscribe(() => {
-        this.userLogin = Object.assign({}, this.signupForm.value);
-        this.authService.login(this.userLogin).subscribe(() => {
+      this.user = Object.assign({}, this.signupForm.value);
+      this.authService.register(this.user).subscribe(() => {
+        this.user = Object.assign({}, this.signupForm.value);
+        this.authService.login(this.user).subscribe(() => {
           this.toast.showToast('Login successful');
           this.router.navigate(['']);
           this.signupForm.reset();

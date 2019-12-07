@@ -6,4 +6,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+  <ion-card *ngFor="let location of locations">
+    <app-location-card [location]="location"></app-location-card>
+  </ion-card>
+</ion-content>

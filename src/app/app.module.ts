@@ -13,10 +13,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
+import { NgxGalleryModule } from 'ngx-gallery';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
- }
+}
 
 @NgModule({
    declarations: [
@@ -34,10 +35,10 @@ export function tokenGetter() {
       JwtModule.forRoot({
          config: {
            tokenGetter,
-           whitelistedDomains: ['localhost:5000/mobile'],
+           whitelistedDomains: ['localhost:5000'],
            blacklistedRoutes: ['localhost:5000/mobileauth']
          }
-       })
+       }),
    ],
    providers: [
       ErrorInterceptorProvider,

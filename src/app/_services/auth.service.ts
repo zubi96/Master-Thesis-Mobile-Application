@@ -10,7 +10,6 @@ import { map } from 'rxjs/operators';
 export class AuthService {
   apiUrl = environment.baseUrl + 'mobileauth/';
   jwtHelper = new JwtHelperService();
-  decodedToken: any;
 
   constructor(private http: HttpClient) { }
 
@@ -19,12 +18,17 @@ export class AuthService {
     return !this.jwtHelper.isTokenExpired(token);
   }
 
+  getUserId() {
+    return localStorage.getItem('userid');
+  }
+
   login(model: any) {
     return this.http.post(this.apiUrl + 'login', model).pipe(
       map((response: any) => {
         const token = response.token;
         if (token) {
           localStorage.setItem('token', token);
+          localStorage.setItem('userid', this.jwtHelper.decodeToken(token).nameid);
         }
       })
     );

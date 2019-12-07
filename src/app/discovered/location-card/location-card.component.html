@@ -1,0 +1,10 @@
+<img src="{{mainPhotoUrl || '/assets/placeholder-location.png'}}" alt="" />
+<ion-card-header>
+  <ion-card-subtitle color="primary">{{location.categoryName}}</ion-card-subtitle>
+  <ion-card-title>{{location.name}}</ion-card-title>
+</ion-card-header>
+
+<ion-card-content>
+  <ion-button size="medium" type="button" (click)="moreInfo()" color="primary">More info</ion-button>
+  <ion-button size="medium" type="button" (click)="goThere()" color="danger">Go there</ion-button>
+</ion-card-content>

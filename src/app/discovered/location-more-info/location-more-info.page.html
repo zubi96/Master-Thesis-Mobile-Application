@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{location.name}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-slides pager="true" [options]="slideOptions">
+        <ion-slide *ngFor="let photo of location.photos">
+            <img src="{{photo.url}}" alt="" />
+        </ion-slide>
+      </ion-slides>
+    <p>{{location.categoryName}}</p>
+    <h3>Short description: </h3>
+    <p>{{location.shortDescription}}</p>
+    <h3>Long descption: </h3>
+    <p>{{location.longDescription}}</p>
+
+</ion-content>

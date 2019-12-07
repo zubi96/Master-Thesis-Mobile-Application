@@ -9,6 +9,10 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'location-more-info',
+    loadChildren: () => import('./discovered/location-more-info/location-more-info.module').then( m => m.LocationMoreInfoPageModule)
   }
 ];
 @NgModule({
