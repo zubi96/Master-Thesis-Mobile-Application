@@ -1,5 +1,7 @@
 {
   "name": "Master-Thesis-Mobile-Application",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

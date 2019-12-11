@@ -3,6 +3,7 @@ import { LocationService } from '../_services/location.service';
 import { ToastService } from '../_services/toast.service';
 import { AuthService } from '../_services/auth.service';
 import { Location } from '../_models/location';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-discovered',
@@ -11,19 +12,32 @@ import { Location } from '../_models/location';
 })
 export class DiscoveredPage implements OnInit {
   locations: Location[];
+  locationsEmpty = true;
 
-  constructor(private locationService: LocationService, private toastService: ToastService, private authService: AuthService) {}
+  constructor(private locationService: LocationService, private toastService: ToastService,
+              private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.loadLocations();
   }
 
+  ionViewDidEnter() {
+    this.loadLocations();
+  }
+
   loadLocations() {
     this.locationService.getDiscoveredLocations(+this.authService.getUserId()).subscribe((response) => {
-      this.locations = response;
+      this.locations = response.reverse();
+      if (this.locations.length > 0) {
+        this.locationsEmpty = false;
+      }
     }, error => {
       this.toastService.showToast(error);
     });
+  }
+
+  goToDiscover() {
+    this.router.navigate(['/tabs/discover']);
   }
 
 }

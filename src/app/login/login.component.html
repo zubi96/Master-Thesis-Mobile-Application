@@ -1,11 +1,10 @@
+<img src="/assets/header.jpg" alt="" />
 <ion-content class="ion-padding">
   <form *ngIf="showLoginForm" [formGroup]="loginForm" (ngSubmit)="login()">
     <ion-grid>
       <ion-row class="ion-justify-content-center">
         <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
-          <div class="ion-text-center">
-            <h1>Login</h1>
-          </div>
+
           <div class="ion-padding">
             <ion-item>
               <ion-label position="stacked">Username:</ion-label>
@@ -34,9 +33,6 @@
     <ion-grid>
       <ion-row class="ion-justify-content-center">
         <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
-          <div class="ion-text-center">
-            <h1>Sign up</h1>
-          </div>
           <div class="ion-padding">
             <ion-item>
               <ion-label position="stacked">First name:</ion-label>
@@ -86,7 +82,4 @@
       </ion-row>
     </ion-grid>
   </form>
-
-
-
 </ion-content>

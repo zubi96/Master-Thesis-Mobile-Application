@@ -19,4 +19,8 @@ constructor(private http: HttpClient) { }
   getUndiscoveredLocations(userId: number): Observable<Location[]> {
     return this.http.get<Location[]>(this.apiUrl + userId + '/getUndiscoveredLocations');
   }
+
+  discoverLocation(userId: number, locationId: number){
+    return this.http.post(this.apiUrl + userId + '/discoverLocation/' + locationId, {});
+  }
 }

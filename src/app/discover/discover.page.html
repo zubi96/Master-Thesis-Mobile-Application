@@ -3,20 +3,54 @@
     <ion-title>
       Discover
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="scanQrCode()">
+        <ion-icon color="primary" slot="icon-only" name="qr-scanner"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  
-    <ion-card class="welcome-card">
-      <img src="/assets/shapes.svg" alt="" />
-      <ion-card-header>
-        <ion-card-subtitle>Get Started</ion-card-subtitle>
-        <ion-card-title>Welcome</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <p>Now that your app has been created, you'll want to start building out features and components. Check out some of the resources below for next steps.</p>
-      </ion-card-content>
-    </ion-card>
-    
+    <ion-card *ngIf="allDiscovered" class="welcome-card">
+        <img src="/assets/header.jpg" alt="" />
+        <ion-card-header>
+          <ion-card-title color="primary">Awesome!</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>You have discovered every location!</p>
+        </ion-card-content>
+      </ion-card>
+
+  <ion-card *ngIf="!mapShown && !allDiscovered" class="welcome-card">
+    <img src="/assets/header.jpg" alt="" />
+    <ion-card-header>
+      <ion-card-title>Welcome!</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Are you ready to discover a rich cultural heritage of a place you are visiting? If you are, then in order to
+        discover a new location scan QR code you will find near the location.</p>
+      <p>Locations you have not yet discovered will be shown on the map.</p>
+      <ion-button (click)="showMap()">Show map</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <agm-map *ngIf="mapShown && !allDiscovered" [latitude]="45.3283847" [longitude]="14.4673437" [zoom]="13" [disableDefaultUI]="false"
+    [zoomControl]="false" [minZoom]="10" [maxZoom]="20">
+    <agm-marker *ngFor="let location of locations" [latitude]="location.lat" [longitude]="location.lng" [iconUrl]="'/assets/icon/location-pin.png'">
+      <agm-info-window>
+        <ion-thumbnail>
+          <img src="{{location.photos[0].url || '/assets/placeholder-location.png'}}">
+        </ion-thumbnail>
+        <ion-text class="ion-text-center">
+          <h5>{{location.name}}</h5>
+        </ion-text>
+        <ion-button color="danger" (click)="goThere(location.lat, location.lng)">Go there</ion-button>
+      </agm-info-window>
+    </agm-marker>
+  </agm-map>
+
+
+
+
 </ion-content>

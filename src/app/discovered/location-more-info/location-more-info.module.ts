@@ -6,8 +6,6 @@ import { IonicModule } from '@ionic/angular';
 
 import { LocationMoreInfoPageRoutingModule } from './location-more-info-routing.module';
 
-import { LocationMoreInfoPage } from './location-more-info.page';
-
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +13,6 @@ import { LocationMoreInfoPage } from './location-more-info.page';
     IonicModule,
     LocationMoreInfoPageRoutingModule
   ],
-  declarations: [LocationMoreInfoPage]
+  declarations: []
 })
 export class LocationMoreInfoPageModule {}

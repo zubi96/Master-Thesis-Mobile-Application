@@ -15,6 +15,9 @@ export class ErrorInterceptor implements HttpInterceptor {
                 if (error.status === 401) {
                     return throwError('Authorization unsuccessful');
                 }
+                if (error.status === 404) {
+                    return throwError('Not found');
+                }
                 if (error instanceof HttpErrorResponse) {
                     const applicationError = error.headers.get('Application-Error');
                     if (applicationError) {

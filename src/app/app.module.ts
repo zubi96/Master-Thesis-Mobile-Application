@@ -13,7 +13,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
-import { NgxGalleryModule } from 'ngx-gallery';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -44,7 +43,7 @@ export function tokenGetter() {
       ErrorInterceptorProvider,
       StatusBar,
       SplashScreen,
-      { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+      { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
    ],
    bootstrap: [
       AppComponent

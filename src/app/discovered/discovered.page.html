@@ -6,7 +6,20 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="locationsEmpty">
+  <ion-text class="ion-text-center">
+    <h5>No locations yet discovered!</h5>
+  </ion-text>
+  
+  <ion-row>  
+      <ion-col class="ion-text-center">   
+       <ion-button (click)="goToDiscover()">Start discovering</ion-button>  
+    </ion-col> 
+  </ion-row>
+  
+</ion-content>
+
+<ion-content *ngIf="!locationsEmpty">
   <ion-card *ngFor="let location of locations">
     <app-location-card [location]="location"></app-location-card>
   </ion-card>

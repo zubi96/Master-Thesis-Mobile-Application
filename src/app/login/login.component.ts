@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   user: User;
   showLoginForm = true;
   genders = ['Male', 'Female', 'Other'];
-  countries = [ 'Croatia', 'United Kingdom', 'Germany', 'Russia', 'Canada', 'China', 'France', 'Austria'];
+  countries = [ 'Croatia', 'United Kingdom', 'Germany', 'Russia'];
 
   constructor(private authService: AuthService, private formBuilder: FormBuilder, private router: Router, private toast: ToastService) { }
 
@@ -48,7 +48,6 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.user = Object.assign({}, this.loginForm.value);
       this.authService.login(this.user).subscribe(() => {
-        this.toast.showToast('Login successful');
         this.router.navigate(['']);
         this.loginForm.reset();
       }, error => {

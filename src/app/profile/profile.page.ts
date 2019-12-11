@@ -16,7 +16,6 @@ export class ProfilePage {
     localStorage.removeItem('token');
     localStorage.removeItem('userid');
     this.router.navigate(['/login']);
-    this.toast.showToast('Logged out');
   }
 
 }

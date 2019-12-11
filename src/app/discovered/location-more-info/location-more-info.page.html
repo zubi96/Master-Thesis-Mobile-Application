@@ -2,7 +2,9 @@
   <ion-toolbar>
     <ion-title>{{location.name}}</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="dismissModal()">Close</ion-button>
+      <ion-button (click)="dismissModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -11,11 +13,29 @@
         <ion-slide *ngFor="let photo of location.photos">
             <img src="{{photo.url}}" alt="" />
         </ion-slide>
+        <ion-slide *ngIf="location.photos.length === 0">
+            <img src="/assets/placeholder-location.png" alt="" />
+        </ion-slide>
       </ion-slides>
-    <p>{{location.categoryName}}</p>
-    <h3>Short description: </h3>
-    <p>{{location.shortDescription}}</p>
-    <h3>Long descption: </h3>
-    <p>{{location.longDescription}}</p>
+      <ion-grid>
+          <ion-row class="ion-justify-content-center">
+            <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+              <div>
+                <ion-text color="primary">
+                    <h4 >About: </h4>
+                </ion-text>
+                <ion-text>
+                    <p>{{location.shortDescription}}</p>
+                </ion-text>
+                <ion-text color="primary">
+                    <h4>More info: </h4>
+                </ion-text>
+                <ion-text>
+                  <p>{{location.longDescription}}</p>
+                </ion-text>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
 
 </ion-content>
