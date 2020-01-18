@@ -13,7 +13,7 @@
 
 <ion-content>
     <ion-card *ngIf="allDiscovered" class="welcome-card">
-        <img src="/assets/header.jpg" alt="" />
+        <img src="/assets/success.jpg" alt="" />
         <ion-card-header>
           <ion-card-title color="primary">Awesome!</ion-card-title>
         </ion-card-header>
@@ -35,14 +35,17 @@
     </ion-card-content>
   </ion-card>
 
-  <agm-map *ngIf="mapShown && !allDiscovered" [latitude]="45.3283847" [longitude]="14.4673437" [zoom]="13" [disableDefaultUI]="false"
+  <agm-map *ngIf="mapShown && !allDiscovered" [latitude]="45.3283847" [longitude]="14.4673437" [zoom]="10" [disableDefaultUI]="false"
     [zoomControl]="false" [minZoom]="10" [maxZoom]="20">
     <agm-marker *ngFor="let location of locations" [latitude]="location.lat" [longitude]="location.lng" [iconUrl]="'/assets/icon/location-pin.png'">
       <agm-info-window>
-        <ion-thumbnail>
-          <img src="{{location.photos[0].url || '/assets/placeholder-location.png'}}">
+        <ion-thumbnail *ngIf="location.photos[0]">
+          <img src="{{location.photos[0].url}}">
         </ion-thumbnail>
-        <ion-text class="ion-text-center">
+        <ion-thumbnail *ngIf="!location.photos[0]">
+          <img src="/assets/placeholder-location.png">
+        </ion-thumbnail>
+        <ion-text class="ion-text">
           <h5>{{location.name}}</h5>
         </ion-text>
         <ion-button color="danger" (click)="goThere(location.lat, location.lng)">Go there</ion-button>

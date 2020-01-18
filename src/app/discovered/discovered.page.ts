@@ -30,6 +30,8 @@ export class DiscoveredPage implements OnInit {
       this.locations = response.reverse();
       if (this.locations.length > 0) {
         this.locationsEmpty = false;
+      } else {
+        this.locationsEmpty = true;
       }
     }, error => {
       this.toastService.showToast(error);

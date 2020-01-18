@@ -18,17 +18,23 @@ export class DiscoverPage implements OnInit {
   allDiscovered = false;
 
   constructor(private locationService: LocationService, private toast: ToastService, private barcodeScanner: BarcodeScanner,
-              private authService: AuthService, private launchNavigator: LaunchNavigator) {}
+              private authService: AuthService, private launchNavigator: LaunchNavigator) { }
 
   ngOnInit() {
+    this.loadLocations();
+  }
+
+  ionViewDidEnter() {
     this.loadLocations();
   }
 
   loadLocations() {
     this.locationService.getUndiscoveredLocations(+this.authService.getUserId()).subscribe((response) => {
       this.locations = response.reverse();
-      if(this.locations.length === 0){
+      if (this.locations.length === 0) {
         this.allDiscovered = true;
+      } else {
+        this.allDiscovered = false;
       }
     }, error => {
       this.toast.showToast(error);
@@ -47,11 +53,22 @@ export class DiscoverPage implements OnInit {
   }
 
   scanQrCode() {
-    this.barcodeScanner.scan().then(barcodeData => {
-      this.handleScannedText(barcodeData.text);
-    }).catch(err => {
-      this.toast.showToast(err);
-    });
+    this.barcodeScanner.scan(
+      {
+        preferFrontCamera: false, // iOS and Android
+        showFlipCameraButton: false, // iOS and Android
+        showTorchButton: false, // iOS and Android
+        torchOn: false, // Android, launch with the torch switched on (if available)
+        prompt: '', // Android
+        resultDisplayDuration: 0, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+        orientation: 'portrait', // Android only (portrait|landscape), default unset so it rotates with the device
+        disableAnimations: true, // iOS
+        disableSuccessBeep: true // iOS and Android
+      }).then(barcodeData => {
+        this.handleScannedText(barcodeData.text);
+      }).catch(err => {
+        this.toast.showToast(err);
+      });
     // this.handleScannedText('cVE5U3SqB1foiFjM19');
   }
 

@@ -25,6 +25,12 @@ export class LoginComponent implements OnInit {
     this.createSignupForm();
   }
 
+  ionViewWillEnter() {
+    if(this.authService.loggedIn()) {
+      this.router.navigate(['']);
+    }
+  }
+
   createLoginForm() {
     this.signupForm = this.formBuilder.group({
       firstname: ['', Validators.required],
@@ -51,8 +57,9 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['']);
         this.loginForm.reset();
       }, error => {
-        this.loginForm.reset();
-        this.toast.showToast(error);
+        // this.loginForm.reset();
+        this.toast.showToast(JSON.stringify(error));
+        alert(JSON.stringify(error));
       });
     }
   }

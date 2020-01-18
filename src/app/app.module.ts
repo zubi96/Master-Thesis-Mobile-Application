@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
+import { environment } from 'src/environments/environment';
+
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -34,8 +36,9 @@ export function tokenGetter() {
       JwtModule.forRoot({
          config: {
            tokenGetter,
-           whitelistedDomains: ['localhost:5000'],
-           blacklistedRoutes: ['localhost:5000/mobileauth']
+           whitelistedDomains: ['localhost:5000', '192.168.88.130:45455', '192.168.88.130', 'http://192.168.88.130:45455'],
+           blacklistedRoutes: ['localhost:5000/mobileauth', '192.168.88.130:45455/mobileauth',
+                              '192.168.88.130/mobileauth', 'http://192.168.88.130:45455/mobileauth']
          }
        }),
    ],
